@@ -22,8 +22,8 @@ spec:
         - configMapRef:
             name: synergychat-crawler-configmap
         volumeMounts:
-        - name: synergychat-api-volume
-          mountPath: /persist
+        - name: cache-volume
+          mountPath: /cache
       - name: synergychat-crawler-2
         image: docker.io/bootdotdev/synergychat-crawler:latest
         env:
@@ -43,8 +43,8 @@ spec:
               name: synergychat-crawler-configmap
               key: CRAWLER_DB_PATH
         volumeMounts:
-        - name: synergychat-api-volume
-          mountPath: /persist
+        - name: cache-volume
+          mountPath: /cache
       - name: synergychat-crawler-3
         image: docker.io/bootdotdev/synergychat-crawler:latest
         env:
@@ -64,9 +64,8 @@ spec:
               name: synergychat-crawler-configmap
               key: CRAWLER_DB_PATH
         volumeMounts:
-        - name: synergychat-api-volume
-          mountPath: /persist
+        - name: cache-volume
+          mountPath: /cache
       volumes:
-      - name: synergychat-api-volume
-        persistentVolumeClaim:
-          claimName: synergychat-api-pvc
+      - name: cache-volume
+        emptyDir: {}

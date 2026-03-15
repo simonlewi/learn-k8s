@@ -20,9 +20,6 @@ spec:
           claimName: synergychat-api-pvc
       containers:
       - name: synergychat-api
-        volumeMounts:
-        - name: synergychat-api-volume
-          mountPath: /persist
         image: docker.io/bootdotdev/synergychat-api:latest
         env:
         - name: API_PORT
@@ -35,3 +32,11 @@ spec:
             configMapKeyRef:
               name: synergychat-api-configmap
               key: API_DB_FILEPATH
+        - name: CRAWLER_BASE_URL
+          valueFrom:
+            configMapKeyRef:
+              name: synergychat-api-configmap
+              key: CRAWLER_BASE_URL
+        volumeMounts:
+        - name: synergychat-api-volume
+          mountPath: /persist
